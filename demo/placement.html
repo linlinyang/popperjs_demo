@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .bg-title{
+            text-align: center;
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .box{
+            width: 300px;
+            height: 300px;
+            line-height: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            user-select: none;
+            font-size: 20px;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            margin: 200px auto 0;
+            text-align: center;
+        }
+        .box:hover{
+            color: #7996e6;
+            border-color: #7996e6;
+        }
+
+        .popper{
+            display: inline-block;
+            padding: 8px 18px;
+            background-color: #98e165;
+            color: #333;
+            font-size: 24px;
+            border-radius: 5px;
+            position: relative;
+            margin: 10px 0 0 10px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .popper:hover{
+            color: #fff;
+            background-color: #666;
+        }
+
+        .popper .arrow{
+            width: 0;
+            height: 0;
+            position: absolute; 
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .atop .arrow{
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: 8px solid #98e165;
+            border-bottom: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+        }
+
+        .aright .arrow{
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-right: 8px solid #98e165;
+            border-left: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+        }
+
+        .abottom .arrow{
+            left: 50%;
+            top: -8px;
+            transform: translateX(-50%);
+            border-bottom: 8px solid #98e165;
+            border-top: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+        }
+
+        .aleft .arrow{
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: 8px solid #98e165;
+            border-right: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="bg-title">
+        <p>placement；设置popper元素相对reference元素的位置</p>
+    </div>
+
+    <div class="box">
+        <span>Reference Element</span>
+    </div>
+
+    
+    <div class="popper top-start atop">
+        <p>Top-start Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper top atop">
+        <p>Top Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper top-end atop">
+        <p>Top-end Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper right-start aright">
+        <p>Right-start Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper right aright">
+        <p>Right Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper right-end aright">
+        <p>Right-end Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper bottom-start abottom">
+        <p>Bottom-start Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper bottom abottom">
+        <p>Bottom Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper bottom-end abottom">
+        <p>Bottom-end Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper left-start aleft">
+        <p>Left-start Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper left aleft">
+        <p>Left Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper left-end aleft">
+        <p>Left-end Popper</p>
+        <div class="arrow"></div>
+    </div>
+
+    <script src="https://unpkg.com/popper.js"></script>
+    <script type="text/javascript">
+
+        window.addEventListener('DOMContentLoaded',ready,false);
+
+        function ready(){
+            var query = document.querySelector.bind(document),
+                box = query('.box');
+
+            /* 
+            * placement: top-start
+            */
+            var topStart = query('.top-start');
+            new Popper(box,topStart,{
+                placement: 'top-start',
+                modifiers: {
+                    offset: {
+                        offset: '0, 55px'
+                    }
+                }
+            });
+
+            /* 
+            * placement: top
+            */
+            var top = query('.top');
+            new Popper(box,top,{
+                placement: 'top'
+            });
+
+            /* 
+            * placement: top-end
+            */
+            var topEnd = query('.top-end');
+            new Popper(box,topEnd,{
+                placement: 'top-end',
+                modifiers: {
+                    offset: {
+                        offset: '0, 110px'
+                    }
+                }
+            });
+
+            /* 
+            * placement: right-start
+            */
+            var rightStart = query('.right-start');
+            new Popper(box,rightStart,{
+                placement: 'right-start'
+            });
+
+            /* 
+            * placement: right
+            */
+            var right = query('.right');
+            new Popper(box,right,{
+                placement: 'right'
+            });
+
+            /* 
+            * placement: right-end
+            */
+            var rightEnd = query('.right-end');
+            new Popper(box,rightEnd,{
+                placement: 'right-end'
+            });
+
+            /* 
+            * placement: bottom-start
+            */
+            var bottomStart = query('.bottom-start');
+            new Popper(box,bottomStart,{
+                placement: 'bottom-start',
+                modifiers: {
+                    offset: {
+                        offset: '0, 55px'
+                    }
+                }
+            });
+
+            /* 
+            * placement: bottom
+            */
+            var bottom = query('.bottom');
+            new Popper(box,bottom,{
+                placement: 'bottom'
+            });
+
+            /* 
+            * placement: bottom-end
+            */
+            var bottomEnd = query('.bottom-end');
+            new Popper(box,bottomEnd,{
+                placement: 'bottom-end',
+                modifiers: {
+                    offset: {
+                        offset: '0, 110px'
+                    }
+                }
+            });
+
+            /* 
+            * placement: left-start
+            */
+            var leftStart = query('.left-start');
+            new Popper(box,leftStart,{
+                placement: 'left-start'
+            });
+
+            /* 
+            * placement: left
+            */
+            var left = query('.left');
+            new Popper(box,left,{
+                placement: 'left'
+            });
+
+            /* 
+            * placement: left-end
+            */
+            var leftEnd = query('.left-end');
+            new Popper(box,leftEnd,{
+                placement: 'left-end'
+            });
+            
+        }
+
+    </script>
+
+</body>
+</html>
