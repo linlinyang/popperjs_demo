@@ -62,40 +62,99 @@
             left: 50%;
             transform: translateX(-50%)
         }
+        .atop .arrow{
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: 8px solid #98e165;
+            border-bottom: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+        }
     </style>
 </head>
 <body>
     
     <div class="bg-title">
-        <p>用于popper元素配置了placement设置了-start或-end的定位</p>
+        <p>如果shift属性设置无效，则placement设置带-end或-start的属性将会去除-start或-end标记，例如placement: 'top-start'将会被设置为top</p>
     </div>
 
     <div class="box">
         <span>Reference Element</span>
     </div>
 
-    <div class="popper">
-        <p>Hello PopperJS</p>
+    <div class="popper top-start atop">
+        <p>Top-start Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper top atop">
+        <p>Top Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper top-end atop">
+        <p>Top-end Popper</p>
         <div class="arrow"></div>
     </div>
     
     <script src="https://unpkg.com/popper.js"></script>
     <script>
     
-        /* 
-        * shift: 用于popper元素在reference元素上的偏移
-        * 如果设置为无效，则添加-start或-end的placement无效，例如：top-start将使用top作为placement进行配置
-        */
-        var box = document.querySelector('.box'),
-            popper = document.querySelector('.popper'),
-            pIntance = new Popper(box,popper,{
-                placement: 'top-end',
+        window.addEventListener('DOMContentLoaded',ready,false);
+
+        function ready(){
+
+            /* 
+            * shift: 用于popper元素在reference元素上的偏移
+            * 如果设置为无效，则添加-start或-end的placement无效，例如：top-start将使用top作为placement进行配置
+            */
+            var query = document.querySelector.bind(document),
+                box = query('.box');
+                
+            /* 
+            * placement: top-start
+            */
+            var topStart = query('.top-start');
+            new Popper(box,topStart,{
+                placement: 'top-start',
                 modifiers: {
+                    offset: {
+                        offset: '0, 55px'
+                    },
                     shift: {
-                        enabled: true
+                        enabled: false
                     }
                 }
             });
+
+            /* 
+            * placement: top
+            */
+            var top = query('.top');
+            new Popper(box,top,{
+                placement: 'top',
+                shift: {
+                    enabled: false
+                }
+            });
+
+            /* 
+            * placement: top-end
+            */
+            var topEnd = query('.top-end');
+            new Popper(box,topEnd,{
+                placement: 'top-end',
+                modifiers: {
+                    offset: {
+                        offset: '0, 110px'
+                    },
+                    shift: {
+                        enabled: false
+                    }
+                }
+            });
+
+        }
+        
     
     </script>
 

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .bg-title{
+            text-align: center;
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .box{
+            width: 300px;
+            height: 300px;
+            line-height: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            user-select: none;
+            font-size: 20px;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            margin: 50px auto 0;
+            text-align: center;
+        }
+        .box:hover{
+            color: #7996e6;
+            border-color: #7996e6;
+        }
+
+        .popper{
+            display: inline-block;
+            padding: 8px 18px;
+            background-color: #98e165;
+            color: #333;
+            font-size: 24px;
+            border-radius: 5px;
+            position: relative;
+            margin: 10px 0 0 10px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .popper:hover{
+            color: #fff;
+            background-color: #666;
+        }
+
+        .popper .arrow{
+            width: 0;
+            height: 0;
+            position: absolute; 
+            transition: all 0.2s ease-in-out;
+        }
+
+        .abottom .arrow{
+            left: 50%;
+            top: -8px;
+            transform: translateX(-50%);
+            border-bottom: 8px solid #98e165;
+            border-top: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="bg-title">
+        <p>设置popper元素的偏移</p>
+    </div>
+
+    <div class="box">
+        <span>Reference Element</span>
+    </div>
+
+    <div class="popper bottom abottom">
+        <p>Bottom Popper</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper bottom1 abottom">
+        <p>Bottom offset '40,58px'</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper bottom2 abottom">
+        <p>Bottom offset '-40,40%'</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper bottom3 abottom">
+        <p>Bottom offset '10vw,320%p'</p>
+        <div class="arrow"></div>
+    </div>
+    <div class="popper bottom4 abottom">
+        <p>Bottom offset '10% + 10,10 - 5vh'</p>
+        <div class="arrow"></div>
+    </div>
+
+    <script src="https://unpkg.com/popper.js"></script>
+    <script type="text/javascript">
+
+        window.addEventListener('DOMContentLoaded',ready,false);
+
+        function ready(){
+            var query = document.querySelector.bind(document),
+                box = query('.box');
+
+            /* 
+            * 不配置offset
+            */
+            var bottom = query('.bottom');
+            new Popper(box,bottom,{
+                placement: 'bottom',
+            });
+
+            /* 
+            * offset 参数支持数据单位：
+            *
+            *   px，像素
+            *   %或%r，相对于reference的百分比距离
+            *   %p，相对于popper的百分比距离
+            *   vw，vh；相对于视图窗口的百分比距离
+            *   number；数据默认是px单位
+            * 
+            * 设置主轴方向的offset请使用单个值，设置两个方向的offset请使用“,”（逗号）隔开，空格分隔已被废弃，慎用！
+            * 如果placement设置为top或bottom，则主轴为水平方向
+            * 如果placement设置为left或right，则主轴为垂直方向
+            * 
+            *
+            * 以上数据格式可组合加减计算使用（暂不支持乘法运算），例如：
+            *   '10% + 10,10 - 5vh'
+            */
+
+            var bottom1 = query('.bottom1');
+            new Popper(box,bottom1,{
+                placement: 'bottom',
+                modifiers: {
+                    offset: {
+                        offset: '40,58px'
+                    }
+                }
+            });
+
+            var bottom2 = query('.bottom2');
+            new Popper(box,bottom2,{
+                placement: 'bottom',
+                modifiers: {
+                    offset: {
+                        offset: '-40,40%'
+                    }
+                }
+            });
+
+            var bottom3 = query('.bottom3');
+            new Popper(box,bottom3,{
+                placement: 'bottom',
+                modifiers: {
+                    offset: {
+                        offset: '10vw,320%p'
+                    }
+                }
+            });
+
+            var bottom4 = query('.bottom4');
+            new Popper(box,bottom4,{
+                placement: 'bottom',
+                modifiers: {
+                    offset: {
+                        offset: '10% + 10,10 - 5vh'
+                    }
+                }
+            });
+            
+        }
+
+    </script>
+
+</body>
+</html>
