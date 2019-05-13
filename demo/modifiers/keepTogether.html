@@ -67,7 +67,7 @@
 <body>
     
     <div class="bg-title">
-        <p>保证在popper和reference元素没缝隙的贴在一起</p>
+        <p>保证在popper和reference元素没缝隙的贴在一起,如果设置offset，则offset有效</p>
     </div>
 
     <div class="box">
@@ -84,6 +84,8 @@
     
         /* 
         * keepTogether: 保证在popper和reference元素没缝隙的贴在一起
+        *
+        *效果不太明显，感觉没啥用
         */
         var box = document.querySelector('.box'),
             popper = document.querySelector('.popper'),
@@ -92,6 +94,9 @@
                 modifiers: {
                     keepTogether: {
                         enabled: true
+                    },
+                    arrow: {
+                        element: '.arrow'
                     }
                 }
             });

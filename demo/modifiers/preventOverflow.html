@@ -29,10 +29,10 @@
             cursor: pointer;
             user-select: none;
             font-size: 20px;
-            transition: all 0.2s ease-in-out;
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
             overflow: hidden;
-            margin: 800px auto 0;
             text-align: center;
         }
         .box:hover{
@@ -85,20 +85,52 @@
         /* 
         * preventOverflow: 防止popper元素被定位到视图边界之外
         *
-        * 当reference不在视图窗口之内，是该根据视图窗口的边界来定位还是依旧根据reference元素来进行定位，取决于preventOver的设置
         *
         */
-        var box = document.querySelector('.box'),
+        function ready(){
+            var box = document.querySelector('.box'),
             popper = document.querySelector('.popper'),
             pIntance = new Popper(box,popper,{
-                placement: 'bottom',
-                preventOverflow: {
-                    priority: ['left'],
-                    padding: 10,
-                    boundariesElement: '.box'
+                placement: 'left',
+                modifiers: {
+                    preventOverflow: {
+                        priority: []
+                    }
                 }
-                
             });
+
+            var isDraggind = false,
+                disanceX = disanceY = 0;
+
+            box.addEventListener('mousedown',beginDragging,false);
+            box.addEventListener('mousemove',dragging,false);
+            box.addEventListener('mouseup',endDragging,false);
+
+            function beginDragging(e){
+                isDraggind = true;
+                var styles = document.defaultView.getComputedStyle(box),
+                    originTop = parseFloat(styles.top),
+                    originLeft = parseFloat(styles.left),    
+                    startX = e.clientX,
+                    startY = e.clientY;
+
+                disanceX = startX - originLeft;
+                disanceY = startY - originTop;
+            }
+            function dragging(e){
+                if(!isDraggind){return;}
+                var curX = e.clientX,
+                    curY = e.clientY;
+                box.style.top = (curY - disanceY) + 'px';
+                box.style.left = (curX - disanceX) + 'px';
+                pIntance.update();
+            }
+            function endDragging(){
+                isDraggind = false;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded',ready,false);
     
     </script>
 

@@ -82,29 +82,44 @@
     <script src="https://unpkg.com/popper.js"></script>
     <script>
     
-        /* 
-        * computeStyle: 计算样式为apply style做准备，不直接操作dom
-        *
-        * gpuAcceleration 使用transform 3d来进行定位，默认为true,设置为false则使用top和left来进行定位
-        *
-        * x: top|bottom,默认bottom,papper在坐标系中x轴边界
-        * y: left|right,默认left,papper在坐标系中y轴边界
-        * 
-        * 例如y设置为right，那么popper元素的增长方向就是向左，右侧是他的边界
-        */
-        var box = document.querySelector('.box'),
-            popper = document.querySelector('.popper'),
-            pIntance = new Popper(box,popper,{
-                placement: 'top',
-                modifiers: {
-                    computeStyle: {
-                        gpuAcceleration: false,
-                        x: 'bottom',
-                        y: 'left'
+        function ready(){
+
+            /* 
+            * computeStyle: 计算样式为apply style做准备，不直接操作dom
+            *
+            * gpuAcceleration 使用transform 3d来进行定位，默认为true,设置为false则使用top和left来进行定位
+            *
+            * x: top|bottom,默认bottom,papper在坐标系中x轴边界
+            * y: left|right,默认left,papper在坐标系中y轴边界
+            * 
+            * 例如y设置为right，那么popper元素的增长方向就是向左，右侧是他的边界
+            */
+            var box = document.querySelector('.box'),
+                popper = document.querySelector('.popper'),
+                pIntance = new Popper(box,popper,{
+                    placement: 'top',
+                    modifiers: {
+                        computeStyle: {
+                            gpuAcceleration: false,
+                            x: 'bottom',
+                            y: 'left'
+                        }
                     }
-                }
-            });
-    
+                });
+            
+                box.addEventListener('click',function(){
+
+                var p = document.createElement('p');
+                p.innerHTML = new Date().toString();
+                console.log(p);
+                popper.appendChild(p);
+                pIntance.update();
+
+                },false);
+        }
+
+        window.addEventListener('DOMContentLoaded',ready,false);
+
     </script>
 
 </body>

@@ -77,49 +77,55 @@
     
     <script src="https://unpkg.com/popper.js"></script>
     <script>
-    
-        /* 
-        * applyStyle: 向popper上合并computed style
-        *
-        * 如果设置为无效，则自行设置定位方式为absolute
-        *
-        */
-        var box = document.querySelector('.box'),
-            popper = document.querySelector('.popper'),
-            pIntance = new Popper(box,popper,{
-                placement: 'top',
-                modifiers: {
-                    computeStyle: {
-                        gpuAcceleration: false
-                    },
-                    arrow: {
-                        element: '.arrow'
-                    },
-                    autoSizing: {
-                        order: 860,
-                        enabled: true,
-                        fn: (data) => {
-                            const arrowWidth = 8;
-                            const arrowHeight = 8;
-                            const popper = data.popper;
+        
+        function ready(){
 
-                            console.log(data);
-                            data.styles = Object.assign(data.styles,{
-                                opacity: 0.8
-                            });
-                            data.arrowStyles = Object.assign(
-                                data.arrowStyles,
-                                {
-                                    position: 'absolute',
-                                    left: (popper.width - arrowWidth) / 2,
-                                    bottom: '-' + arrowHeight
-                                }
-                            );
-                            return data;
+            /* 
+            * applyStyle: 向popper上合并computed style
+            *
+            * 如果设置为无效，则自行设置定位方式为absolute
+            *
+            */
+            var box = document.querySelector('.box'),
+                popper = document.querySelector('.popper'),
+                pIntance = new Popper(box,popper,{
+                    placement: 'top',
+                    modifiers: {
+                        computeStyle: {
+                            gpuAcceleration: false
+                        },
+                        arrow: {
+                            element: '.arrow'
+                        },
+                        positionArrow: {//自定义popper定位
+                            order: 860,
+                            enabled: true,
+                            fn: (data) => {
+                                var arrowWidth = 8;
+                                var arrowHeight = 8;
+                                var popper = data.popper;
+
+                                console.log(data);
+                                data.styles = Object.assign(data.styles,{
+                                    opacity: 0.8,
+                                    top: popper.top
+                                });
+                                data.arrowStyles = Object.assign(
+                                    data.arrowStyles,
+                                    {
+                                        position: 'absolute',
+                                        left: (popper.width - arrowWidth) / 2,
+                                        bottom: '-' + arrowHeight
+                                    }
+                                );
+                                return data;
+                            }
                         }
                     }
-                }
-            });
+                });
+
+        }
+        window.addEventListener('DOMContentLoaded',ready,false);
     
     </script>
 
