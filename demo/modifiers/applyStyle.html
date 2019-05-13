@@ -57,10 +57,6 @@
             border-bottom: 0;
             border-left: 8px solid transparent;
             border-right: 8px solid transparent;
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%)
         }
     </style>
 </head>
@@ -93,24 +89,33 @@
             pIntance = new Popper(box,popper,{
                 placement: 'top',
                 modifiers: {
+                    computeStyle: {
+                        gpuAcceleration: false
+                    },
+                    arrow: {
+                        element: '.arrow'
+                    },
                     autoSizing: {
                         order: 860,
                         enabled: true,
                         fn: (data) => {
-                            const isVisible = true;
+                            const arrowWidth = 8;
+                            const arrowHeight = 8;
+                            const popper = data.popper;
 
-                            const left = Math.floor(data.popper.left);
-                            const top = Math.floor(data.popper.top);
-                            const newTop = isVisible ? top : top - 10; // Change the top position if popper is hidden
-
-                            const transform = `translate3d(${left}px, ${newTop}px, 0px)`;
-
-                            // Update popper, offsets and styles object
-                            const popper = {...data.popper, left, top: newTop};
-                            const offsets = {...data.offsets, popper};
-                            const styles = {...data.styles, opacity: 0.8};
-
-                            return {...data, offsets, styles};
+                            console.log(data);
+                            data.styles = Object.assign(data.styles,{
+                                opacity: 0.8
+                            });
+                            data.arrowStyles = Object.assign(
+                                data.arrowStyles,
+                                {
+                                    position: 'absolute',
+                                    left: (popper.width - arrowWidth) / 2,
+                                    bottom: '-' + arrowHeight
+                                }
+                            );
+                            return data;
                         }
                     }
                 }
