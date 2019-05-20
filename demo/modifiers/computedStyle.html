@@ -67,7 +67,7 @@
 <body>
     
     <div class="bg-title">
-        <p>保证在popper和reference元素没缝隙的贴在一起</p>
+        <p>计算样式为apply style做准备，不直接操作dom</p>
     </div>
 
     <div class="box">
@@ -89,10 +89,10 @@
             *
             * gpuAcceleration 使用transform 3d来进行定位，默认为true,设置为false则使用top和left来进行定位
             *
-            * x: top|bottom,默认bottom,papper在坐标系中x轴边界
-            * y: left|right,默认left,papper在坐标系中y轴边界
+            * x: top|bottom,默认bottom,使用相反的值来进行定位,例如设置为bottom，则定位时使用top进行定位（top和bottom不能同时有效）
+            * y: left|right,默认left,使用相反的值来进行定位
             * 
-            * 例如y设置为right，那么popper元素的增长方向就是向左，右侧是他的边界
+            * 例如y设置为right，那么popper元素的position将使用left而不是用right
             */
             var box = document.querySelector('.box'),
                 popper = document.querySelector('.popper'),
